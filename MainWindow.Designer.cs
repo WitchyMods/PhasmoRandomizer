@@ -46,6 +46,8 @@
             this.ucPlayer2 = new PhasmoRandomizer.ucPlayer();
             this.ucPlayer3 = new PhasmoRandomizer.ucPlayer();
             this.ucPlayer4 = new PhasmoRandomizer.ucPlayer();
+            this.btnRestoreDefaults = new System.Windows.Forms.Button();
+            this.btnSetAllTo1 = new System.Windows.Forms.Button();
             this.gbSettings.SuspendLayout();
             this.flpPlayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numItemsPerPlayers)).BeginInit();
@@ -56,6 +58,8 @@
             // gbSettings
             // 
             this.gbSettings.Controls.Add(this.tblItems);
+            this.gbSettings.Controls.Add(this.btnSetAllTo1);
+            this.gbSettings.Controls.Add(this.btnRestoreDefaults);
             this.gbSettings.Controls.Add(this.btnSaveSettings);
             this.gbSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbSettings.ForeColor = System.Drawing.Color.White;
@@ -97,7 +101,7 @@
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(75, 26);
             this.btnSaveSettings.TabIndex = 0;
-            this.btnSaveSettings.Text = "Back";
+            this.btnSaveSettings.Text = "Save";
             this.btnSaveSettings.UseVisualStyleBackColor = false;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
@@ -315,14 +319,40 @@
             this.ucPlayer4.TabIndex = 3;
             this.ucPlayer4.Visible = false;
             // 
+            // btnRestoreDefaults
+            // 
+            this.btnRestoreDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRestoreDefaults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnRestoreDefaults.Location = new System.Drawing.Point(6, 218);
+            this.btnRestoreDefaults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRestoreDefaults.Name = "btnRestoreDefaults";
+            this.btnRestoreDefaults.Size = new System.Drawing.Size(125, 26);
+            this.btnRestoreDefaults.TabIndex = 0;
+            this.btnRestoreDefaults.Text = "Restore Defaults";
+            this.btnRestoreDefaults.UseVisualStyleBackColor = false;
+            this.btnRestoreDefaults.Click += new System.EventHandler(this.btnRestoreDefaults_Click);
+            // 
+            // btnSetAllTo1
+            // 
+            this.btnSetAllTo1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetAllTo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnSetAllTo1.Location = new System.Drawing.Point(137, 218);
+            this.btnSetAllTo1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSetAllTo1.Name = "btnSetAllTo1";
+            this.btnSetAllTo1.Size = new System.Drawing.Size(75, 26);
+            this.btnSetAllTo1.TabIndex = 0;
+            this.btnSetAllTo1.Text = "Set All To 1";
+            this.btnSetAllTo1.UseVisualStyleBackColor = false;
+            this.btnSetAllTo1.Click += new System.EventHandler(this.btnSetAllTo1_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(438, 252);
-            this.Controls.Add(this.panTeam);
             this.Controls.Add(this.gbSettings);
+            this.Controls.Add(this.panTeam);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -363,6 +393,8 @@
         private System.Windows.Forms.CheckBox chkForceFlashlight;
         private System.Windows.Forms.CheckBox chkIncludeLight;
         private System.Windows.Forms.Panel panTeam;
+        private System.Windows.Forms.Button btnSetAllTo1;
+        private System.Windows.Forms.Button btnRestoreDefaults;
     }
 }
 

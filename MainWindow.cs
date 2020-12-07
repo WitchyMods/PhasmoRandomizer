@@ -53,6 +53,7 @@ namespace PhasmoRandomizer
         {
             public string Name { get; set; }
             public int MaxQty { get; set; }
+            public int DefaultMaxQty { get; set; }
             public bool IsLight { get; set; }
             public bool IsFlashlight { get; set; }
 
@@ -61,7 +62,7 @@ namespace PhasmoRandomizer
             public Item(string name, int qty, bool isLight = false, bool isFlashlight = false)
             {
                 this.Name = name;
-                this.MaxQty = qty;
+                this.MaxQty = this.DefaultMaxQty = qty;
                 this.IsLight = isLight;
                 this.IsFlashlight = isFlashlight;
             }
@@ -181,6 +182,10 @@ namespace PhasmoRandomizer
             gbSettings.Visible = false;
             panTeam.Visible = true;
             btnRandomize.Visible = true;
+
+            string strQuantities = String.Join(";", this.ItemNums.Select(x => x.Value));
+            Properties.Settings.Default.Quantities = strQuantities;
+            Properties.Settings.Default.Save();
         }
 
         private void chkForceFlashlight_CheckedChanged(object sender, EventArgs e)
@@ -201,17 +206,40 @@ namespace PhasmoRandomizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Upgrade();
+
             ucPlayer1.lblPlayerNumber.Text = "Player 1";
             ucPlayer2.lblPlayerNumber.Text = "Player 2";
             ucPlayer3.lblPlayerNumber.Text = "Player 3";
             ucPlayer4.lblPlayerNumber.Text = "Player 4";
 
+            string strQuantities = Properties.Settings.Default.Quantities;
+            int[] quantities = null;
+
+            if (!String.IsNullOrEmpty(strQuantities))
+            {
+                quantities = strQuantities.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x)).ToArray();
+
+                for (int i = 0; i < quantities.Length; i++)
+                {
+                    this.AllItems[i].MaxQty = quantities[i];
+                }
+            }
+
             for (int i = 0; i < AllItems.Count; i++)
             {
                 Label lbl = new Label() { Text = AllItems[i].Name, ForeColor = Color.White };
-                NumericUpDown num = new NumericUpDown() {
-                    TextAlign = HorizontalAlignment.Center, Width = 50, BackColor = Color.FromArgb(60,60,60), ForeColor = Color.White,
-                    Minimum = 0, Maximum = AllItems[i].MaxQty, Value = AllItems[i].MaxQty , Tag = i};
+                NumericUpDown num = new NumericUpDown()
+                {
+                    TextAlign = HorizontalAlignment.Center,
+                    Width = 50,
+                    BackColor = Color.FromArgb(60, 60, 60),
+                    ForeColor = Color.White,
+                    Minimum = 0,
+                    Maximum = AllItems[i].DefaultMaxQty,
+                    Value = AllItems[i].MaxQty,
+                    Tag = i
+                };
 
                 tblItems.Controls.Add(lbl);
                 tblItems.Controls.Add(num);
@@ -221,6 +249,22 @@ namespace PhasmoRandomizer
 
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.Text += " " + version.ToString();
+        }
+
+        private void btnRestoreDefaults_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < this.ItemNums.Count; i++)
+            {
+                this.ItemNums[i].Value = this.ItemNums[i].Maximum;
+            }
+        }
+
+        private void btnSetAllTo1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < this.ItemNums.Count; i++)
+            {
+                this.ItemNums[i].Value = 1;
+            }
         }
     }
 }
