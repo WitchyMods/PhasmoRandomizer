@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.gbSettings = new System.Windows.Forms.GroupBox();
             this.tblItems = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSetAllTo1 = new System.Windows.Forms.Button();
+            this.btnRestoreDefaults = new System.Windows.Forms.Button();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.chkIncludeLight = new System.Windows.Forms.CheckBox();
             this.chkForceFlashlight = new System.Windows.Forms.CheckBox();
@@ -42,17 +44,18 @@
             this.btnRandomize = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.panTeam = new System.Windows.Forms.Panel();
-            this.ucPlayer1 = new PhasmoRandomizer.ucPlayer();
-            this.ucPlayer2 = new PhasmoRandomizer.ucPlayer();
-            this.ucPlayer3 = new PhasmoRandomizer.ucPlayer();
-            this.ucPlayer4 = new PhasmoRandomizer.ucPlayer();
-            this.btnRestoreDefaults = new System.Windows.Forms.Button();
-            this.btnSetAllTo1 = new System.Windows.Forms.Button();
+            this.lnkTwitch = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lnkDownload = new System.Windows.Forms.LinkLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lnkDiscord = new System.Windows.Forms.LinkLabel();
             this.gbSettings.SuspendLayout();
-            this.flpPlayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numItemsPerPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbPlayers)).BeginInit();
             this.panTeam.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbSettings
@@ -67,7 +70,7 @@
             this.gbSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbSettings.Name = "gbSettings";
             this.gbSettings.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbSettings.Size = new System.Drawing.Size(438, 252);
+            this.gbSettings.Size = new System.Drawing.Size(438, 372);
             this.gbSettings.TabIndex = 1;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
@@ -89,14 +92,40 @@
             this.tblItems.RowCount = 2;
             this.tblItems.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblItems.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblItems.Size = new System.Drawing.Size(425, 190);
+            this.tblItems.Size = new System.Drawing.Size(425, 310);
             this.tblItems.TabIndex = 1;
+            // 
+            // btnSetAllTo1
+            // 
+            this.btnSetAllTo1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetAllTo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnSetAllTo1.Location = new System.Drawing.Point(137, 338);
+            this.btnSetAllTo1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSetAllTo1.Name = "btnSetAllTo1";
+            this.btnSetAllTo1.Size = new System.Drawing.Size(75, 26);
+            this.btnSetAllTo1.TabIndex = 0;
+            this.btnSetAllTo1.Text = "Set All To 1";
+            this.btnSetAllTo1.UseVisualStyleBackColor = false;
+            this.btnSetAllTo1.Click += new System.EventHandler(this.btnSetAllTo1_Click);
+            // 
+            // btnRestoreDefaults
+            // 
+            this.btnRestoreDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRestoreDefaults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnRestoreDefaults.Location = new System.Drawing.Point(6, 338);
+            this.btnRestoreDefaults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRestoreDefaults.Name = "btnRestoreDefaults";
+            this.btnRestoreDefaults.Size = new System.Drawing.Size(125, 26);
+            this.btnRestoreDefaults.TabIndex = 0;
+            this.btnRestoreDefaults.Text = "Restore Defaults";
+            this.btnRestoreDefaults.UseVisualStyleBackColor = false;
+            this.btnRestoreDefaults.Click += new System.EventHandler(this.btnRestoreDefaults_Click);
             // 
             // btnSaveSettings
             // 
             this.btnSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnSaveSettings.Location = new System.Drawing.Point(356, 218);
+            this.btnSaveSettings.Location = new System.Drawing.Point(356, 338);
             this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(75, 26);
@@ -115,6 +144,7 @@
             this.chkIncludeLight.TabIndex = 7;
             this.chkIncludeLight.Text = "Include 1 lightsource";
             this.chkIncludeLight.UseVisualStyleBackColor = true;
+            this.chkIncludeLight.CheckedChanged += new System.EventHandler(this.chkIncludeLight_CheckedChanged);
             // 
             // chkForceFlashlight
             // 
@@ -134,14 +164,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpPlayers.AutoScroll = true;
-            this.flpPlayers.Controls.Add(this.ucPlayer1);
-            this.flpPlayers.Controls.Add(this.ucPlayer2);
-            this.flpPlayers.Controls.Add(this.ucPlayer3);
-            this.flpPlayers.Controls.Add(this.ucPlayer4);
+            this.flpPlayers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpPlayers.Location = new System.Drawing.Point(3, 68);
             this.flpPlayers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flpPlayers.Name = "flpPlayers";
-            this.flpPlayers.Size = new System.Drawing.Size(432, 182);
+            this.flpPlayers.Size = new System.Drawing.Size(432, 228);
             this.flpPlayers.TabIndex = 5;
             // 
             // numItemsPerPlayers
@@ -245,6 +272,7 @@
             // 
             // panTeam
             // 
+            this.panTeam.Controls.Add(this.panel1);
             this.panTeam.Controls.Add(this.btnSettings);
             this.panTeam.Controls.Add(this.btnRandomize);
             this.panTeam.Controls.Add(this.label1);
@@ -257,102 +285,101 @@
             this.panTeam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panTeam.Location = new System.Drawing.Point(0, 0);
             this.panTeam.Name = "panTeam";
-            this.panTeam.Size = new System.Drawing.Size(438, 252);
+            this.panTeam.Size = new System.Drawing.Size(438, 372);
             this.panTeam.TabIndex = 3;
             // 
-            // ucPlayer1
+            // lnkTwitch
             // 
-            this.ucPlayer1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ucPlayer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ucPlayer1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucPlayer1.ForeColor = System.Drawing.Color.White;
-            this.ucPlayer1.Location = new System.Drawing.Point(3, 4);
-            this.ucPlayer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucPlayer1.MinimumSize = new System.Drawing.Size(200, 0);
-            this.ucPlayer1.Name = "ucPlayer1";
-            this.ucPlayer1.Padding = new System.Windows.Forms.Padding(2);
-            this.ucPlayer1.Size = new System.Drawing.Size(200, 73);
-            this.ucPlayer1.TabIndex = 0;
+            this.lnkTwitch.AutoSize = true;
+            this.lnkTwitch.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkTwitch.LinkColor = System.Drawing.Color.MediumPurple;
+            this.lnkTwitch.Location = new System.Drawing.Point(134, 0);
+            this.lnkTwitch.Name = "lnkTwitch";
+            this.lnkTwitch.Size = new System.Drawing.Size(198, 15);
+            this.lnkTwitch.TabIndex = 8;
+            this.lnkTwitch.TabStop = true;
+            this.lnkTwitch.Text = "https://www.twitch.tv/witchymods";
+            this.lnkTwitch.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTwitch_LinkClicked);
             // 
-            // ucPlayer2
+            // label3
             // 
-            this.ucPlayer2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ucPlayer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ucPlayer2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucPlayer2.ForeColor = System.Drawing.Color.White;
-            this.ucPlayer2.Location = new System.Drawing.Point(209, 4);
-            this.ucPlayer2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucPlayer2.MinimumSize = new System.Drawing.Size(200, 0);
-            this.ucPlayer2.Name = "ucPlayer2";
-            this.ucPlayer2.Padding = new System.Windows.Forms.Padding(2);
-            this.ucPlayer2.Size = new System.Drawing.Size(200, 73);
-            this.ucPlayer2.TabIndex = 1;
-            this.ucPlayer2.Visible = false;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(129, 15);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Please give a follow :)";
             // 
-            // ucPlayer3
+            // label4
             // 
-            this.ucPlayer3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ucPlayer3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ucPlayer3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucPlayer3.ForeColor = System.Drawing.Color.White;
-            this.ucPlayer3.Location = new System.Drawing.Point(3, 85);
-            this.ucPlayer3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucPlayer3.MinimumSize = new System.Drawing.Size(200, 0);
-            this.ucPlayer3.Name = "ucPlayer3";
-            this.ucPlayer3.Padding = new System.Windows.Forms.Padding(2);
-            this.ucPlayer3.Size = new System.Drawing.Size(200, 73);
-            this.ucPlayer3.TabIndex = 2;
-            this.ucPlayer3.Visible = false;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(2, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 15);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Download link:";
             // 
-            // ucPlayer4
+            // lnkDownload
             // 
-            this.ucPlayer4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ucPlayer4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ucPlayer4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucPlayer4.ForeColor = System.Drawing.Color.White;
-            this.ucPlayer4.Location = new System.Drawing.Point(209, 85);
-            this.ucPlayer4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucPlayer4.MinimumSize = new System.Drawing.Size(200, 0);
-            this.ucPlayer4.Name = "ucPlayer4";
-            this.ucPlayer4.Padding = new System.Windows.Forms.Padding(2);
-            this.ucPlayer4.Size = new System.Drawing.Size(200, 73);
-            this.ucPlayer4.TabIndex = 3;
-            this.ucPlayer4.Visible = false;
+            this.lnkDownload.AutoSize = true;
+            this.lnkDownload.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkDownload.LinkColor = System.Drawing.Color.MediumPurple;
+            this.lnkDownload.Location = new System.Drawing.Point(133, 19);
+            this.lnkDownload.Name = "lnkDownload";
+            this.lnkDownload.Size = new System.Drawing.Size(299, 15);
+            this.lnkDownload.TabIndex = 10;
+            this.lnkDownload.TabStop = true;
+            this.lnkDownload.Text = "https://github.com/WitchyMods/PhasmoRandomizer";
+            this.lnkDownload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDownload_LinkClicked);
             // 
-            // btnRestoreDefaults
+            // panel1
             // 
-            this.btnRestoreDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRestoreDefaults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnRestoreDefaults.Location = new System.Drawing.Point(6, 218);
-            this.btnRestoreDefaults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnRestoreDefaults.Name = "btnRestoreDefaults";
-            this.btnRestoreDefaults.Size = new System.Drawing.Size(125, 26);
-            this.btnRestoreDefaults.TabIndex = 0;
-            this.btnRestoreDefaults.Text = "Restore Defaults";
-            this.btnRestoreDefaults.UseVisualStyleBackColor = false;
-            this.btnRestoreDefaults.Click += new System.EventHandler(this.btnRestoreDefaults_Click);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lnkDiscord);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.lnkTwitch);
+            this.panel1.Controls.Add(this.lnkDownload);
+            this.panel1.Location = new System.Drawing.Point(3, 303);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(432, 69);
+            this.panel1.TabIndex = 12;
             // 
-            // btnSetAllTo1
+            // label5
             // 
-            this.btnSetAllTo1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetAllTo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnSetAllTo1.Location = new System.Drawing.Point(137, 218);
-            this.btnSetAllTo1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSetAllTo1.Name = "btnSetAllTo1";
-            this.btnSetAllTo1.Size = new System.Drawing.Size(75, 26);
-            this.btnSetAllTo1.TabIndex = 0;
-            this.btnSetAllTo1.Text = "Set All To 1";
-            this.btnSetAllTo1.UseVisualStyleBackColor = false;
-            this.btnSetAllTo1.Click += new System.EventHandler(this.btnSetAllTo1_Click);
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(2, 41);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 15);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Discord:";
+            // 
+            // lnkDiscord
+            // 
+            this.lnkDiscord.AutoSize = true;
+            this.lnkDiscord.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkDiscord.LinkColor = System.Drawing.Color.MediumPurple;
+            this.lnkDiscord.Location = new System.Drawing.Point(133, 41);
+            this.lnkDiscord.Name = "lnkDiscord";
+            this.lnkDiscord.Size = new System.Drawing.Size(179, 15);
+            this.lnkDiscord.TabIndex = 12;
+            this.lnkDiscord.TabStop = true;
+            this.lnkDiscord.Text = "https://discord.gg/fHYM2KXffm";
+            this.lnkDiscord.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDiscord_LinkClicked);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(438, 252);
-            this.Controls.Add(this.gbSettings);
+            this.ClientSize = new System.Drawing.Size(438, 372);
             this.Controls.Add(this.panTeam);
+            this.Controls.Add(this.gbSettings);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -365,11 +392,12 @@
             this.Text = "Phasmophobia Randomizer by WitchyMods";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbSettings.ResumeLayout(false);
-            this.flpPlayers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numItemsPerPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNbPlayers)).EndInit();
             this.panTeam.ResumeLayout(false);
             this.panTeam.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -386,15 +414,18 @@
         private System.Windows.Forms.NumericUpDown numNbPlayers;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flpPlayers;
-        private ucPlayer ucPlayer1;
-        private ucPlayer ucPlayer2;
-        private ucPlayer ucPlayer3;
-        private ucPlayer ucPlayer4;
         private System.Windows.Forms.CheckBox chkForceFlashlight;
         private System.Windows.Forms.CheckBox chkIncludeLight;
         private System.Windows.Forms.Panel panTeam;
         private System.Windows.Forms.Button btnSetAllTo1;
         private System.Windows.Forms.Button btnRestoreDefaults;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel lnkTwitch;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel lnkDownload;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel lnkDiscord;
     }
 }
 
