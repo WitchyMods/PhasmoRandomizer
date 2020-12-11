@@ -13,6 +13,8 @@ namespace PhasmoRandomizer
 {
     public partial class MainWindow : Form
     {
+        private bool _Loaded = false;
+
         private List<NumericUpDown> ItemNums = new List<NumericUpDown>();
 
         private List<Dictionary<int, bool>> SelectedItems = new List<Dictionary<int, bool>>();
@@ -40,6 +42,16 @@ namespace PhasmoRandomizer
         private void Form1_Load(object sender, EventArgs e)
         {
             Properties.Settings.Default.Upgrade();
+
+            if(Properties.Settings.Default.WindowHeight >=0 && Properties.Settings.Default.WindowWidth >= 0)
+            {
+                this.Size = new Size(Properties.Settings.Default.WindowWidth, Properties.Settings.Default.WindowHeight);
+            }
+
+            Debug.WriteLine($"NbPlayers {Properties.Settings.Default.NbPlayers}");
+
+            numItemsPerPlayers.Value = Properties.Settings.Default.NbItems;
+            numNbPlayers.Value = Properties.Settings.Default.NbPlayers;
 
             string strQuantities = Properties.Settings.Default.Quantities;
             int[] quantities = null;
@@ -78,6 +90,8 @@ namespace PhasmoRandomizer
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.Text += " " + version.ToString();
 
+            _Loaded = true;
+
             Randomizer.Randomize();
             this.UpdateUI();
         }
@@ -97,12 +111,26 @@ namespace PhasmoRandomizer
 
         private void numNbPlayers_ValueChanged(object sender, EventArgs e)
         {
+            if (_Loaded)
+            {
+                Properties.Settings.Default.NbPlayers = (int)numNbPlayers.Value;
+                Properties.Settings.Default.Save();
+
+                Debug.WriteLine($"NbPlayers {Properties.Settings.Default.NbPlayers}");
+            }
+
             Randomizer.SetNbPlayers((int)numNbPlayers.Value);
             this.UpdateUI();
         }
 
         private void numItemsPerPlayers_ValueChanged(object sender, EventArgs e)
         {
+            if (_Loaded)
+            {
+                Properties.Settings.Default.NbItems = (int)numItemsPerPlayers.Value;
+                Properties.Settings.Default.Save();
+            }
+
             Randomizer.SetNbItemsPerPlayer((int)numItemsPerPlayers.Value);
             UpdateUI();
         }
@@ -158,6 +186,8 @@ namespace PhasmoRandomizer
 
         private void UpdateUI()
         {
+            if (!_Loaded) return;
+
             foreach(var ctrl in this.UcPlayers)
             {
                 ctrl.UpdateUI();
@@ -177,6 +207,13 @@ namespace PhasmoRandomizer
         private void lnkDiscord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://discord.gg/fHYM2KXffm");
+        }
+
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WindowWidth = this.Width;
+            Properties.Settings.Default.WindowHeight = this.Height;
+            Properties.Settings.Default.Save();
         }
     }
 }
