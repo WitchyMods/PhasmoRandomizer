@@ -12,6 +12,8 @@ namespace PhasmoRandomizer
 {
     public partial class ucPlayer : UserControl
     {
+        private string _PlayerName = string.Empty;
+
         private List<ucItem> ItemControls = new List<ucItem>();
         public int PlayerIndex { get; private set; }
 
@@ -23,7 +25,7 @@ namespace PhasmoRandomizer
         public ucPlayer(int playerIndex) : this()
         {
             this.PlayerIndex = playerIndex;
-            lblPlayerNumber.Text = $"Player {this.PlayerIndex + 1}";
+            UpdatePlayerName();
         }
 
         public void UpdateUI()
@@ -55,7 +57,7 @@ namespace PhasmoRandomizer
 
         private void ucPlayer_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 ucItem ucItem = new ucItem(this, i);
                 panItems.Controls.Add(ucItem);
@@ -63,6 +65,40 @@ namespace PhasmoRandomizer
                 ucItem.BringToFront();
                 ItemControls.Add(ucItem);
             }
+        }
+
+        private void txtPlayerName_Leave(object sender, EventArgs e)
+        {
+            _PlayerName = txtPlayerName.Text.Trim();
+            UpdatePlayerName();
+        }
+
+        private void txtPlayerName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)(int)Keys.Enter)
+            {
+                _PlayerName = txtPlayerName.Text.Trim();
+                UpdatePlayerName();
+            }
+        }
+
+        private void lblPlayerNumber_Click(object sender, EventArgs e)
+        {
+            lblPlayerNumber.Visible = false;
+            txtPlayerName.Visible = true;
+            txtPlayerName.Select();
+            txtPlayerName.Focus();
+        }
+
+        private void UpdatePlayerName()
+        {
+            lblPlayerNumber.Visible = true;
+            txtPlayerName.Visible = false;
+
+            if (String.IsNullOrEmpty(_PlayerName))
+                lblPlayerNumber.Text = $"Player {this.PlayerIndex + 1}";
+            else
+                lblPlayerNumber.Text = _PlayerName;
         }
     }
 }
